@@ -17,10 +17,14 @@ const UserList = ({ users, isLoading }) => {
     setHoveredUserId();
   };
 
+  const checkBoxChange = (event) => {
+    console.log(event);
+  };
+
   return (
     <S.UserList>
       <S.Filters>
-        <CheckBox value="BR" label="Brazil" />
+        <CheckBox value="BR" label="Brazil" onChange={checkBoxChange} />
         <CheckBox value="AU" label="Australia" />
         <CheckBox value="CA" label="Canada" />
         <CheckBox value="DE" label="Germany" />
