@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import Text from "components/Text";
-import UserList from "components/UserList";
+import React from "react";
+import { Text } from "components/UI";
 import * as S from "./style";
-
-const HomeUsersList = () => {
-  const [countries, setCountries] = useState([]);
-  const countriesQuery = countries.length > 0 ? `nat=${countries.join(",")}` : "";
-
-  return <UserList query={countriesQuery} />;
-};
+import { UserList } from "components/Home";
 
 const Home = () => {
   return (
@@ -19,7 +12,7 @@ const Home = () => {
             PplFinder
           </Text>
         </S.Header>
-        <HomeUsersList />
+        <UserList />
       </S.Content>
     </S.Home>
   );
