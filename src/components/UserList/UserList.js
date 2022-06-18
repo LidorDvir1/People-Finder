@@ -1,13 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Text from "components/Text";
 import Spinner from "components/Spinner";
 import CheckBox from "components/CheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as S from "./style";
+import { usePeopleFetch } from "hooks";
 
-const UserList = ({ users, isLoading }) => {
+const Loader = () => {
+  console.log("render");
+  return (
+    <S.SpinnerWrapper>
+      <Spinner color="primary" size="45px" thickness={6} variant="indeterminate" />
+    </S.SpinnerWrapper>
+  );
+};
+
+const UserList = ({ query }) => {
   const [hoveredUserId, setHoveredUserId] = useState();
+  const { loading, error, users, onLoadMoreUsers } = usePeopleFetch(query);
 
   const handleMouseEnter = (index) => {
     setHoveredUserId(index);
@@ -17,17 +28,25 @@ const UserList = ({ users, isLoading }) => {
     setHoveredUserId();
   };
 
-  const checkBoxChange = (event) => {
-    console.log(event);
+  const countryCheckBoxChange = (country) => {
+    setCountries((prev) => {
+      const isCountryActive = prev.some((prevCountry) => prevCountry === country);
+
+      if (isCountryActive) {
+        return prev.filter((prevCountry) => prevCountry !== country);
+      } else {
+        return [...prev, country];
+      }
+    });
   };
 
   return (
     <S.UserList>
       <S.Filters>
-        <CheckBox value="BR" label="Brazil" onChange={checkBoxChange} />
-        <CheckBox value="AU" label="Australia" />
-        <CheckBox value="CA" label="Canada" />
-        <CheckBox value="DE" label="Germany" />
+        <CheckBox value="BR" label="Brazil" onChange={countryCheckBoxChange} />
+        <CheckBox value="AU" label="Australia" onChange={countryCheckBoxChange} />
+        <CheckBox value="CA" label="Canada" onChange={countryCheckBoxChange} />
+        <CheckBox value="DE" label="Germany" onChange={countryCheckBoxChange} />
       </S.Filters>
       <S.List>
         {users.map((user, index) => {
@@ -58,11 +77,7 @@ const UserList = ({ users, isLoading }) => {
             </S.User>
           );
         })}
-        {isLoading && (
-          <S.SpinnerWrapper>
-            <Spinner color="primary" size="45px" thickness={6} variant="indeterminate" />
-          </S.SpinnerWrapper>
-        )}
+        {loading && <Loader />}
       </S.List>
     </S.UserList>
   );

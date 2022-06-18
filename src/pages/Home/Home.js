@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Text from "components/Text";
 import UserList from "components/UserList";
-import { usePeopleFetch } from "hooks";
 import * as S from "./style";
 
-const Home = () => {
-  const { users, isLoading } = usePeopleFetch();
+const HomeUsersList = () => {
+  const [countries, setCountries] = useState([]);
+  const countriesQuery = countries.length > 0 ? `nat=${countries.join(",")}` : "";
 
+  return <UserList query={countriesQuery} />;
+};
+
+const Home = () => {
   return (
     <S.Home>
       <S.Content>
@@ -15,7 +19,7 @@ const Home = () => {
             PplFinder
           </Text>
         </S.Header>
-        <UserList users={users} isLoading={isLoading} />
+        <HomeUsersList />
       </S.Content>
     </S.Home>
   );
