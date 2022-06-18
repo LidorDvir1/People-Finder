@@ -2,7 +2,7 @@ import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { Home } from "pages";
 import { ThemeProvider } from "theme";
-import NavBar from "components/NavBar";
+import NavBar from "components/App/NavBar";
 
 const AppRouter = () => {
   return (

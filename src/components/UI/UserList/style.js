@@ -1,10 +1,5 @@
 import styled from "styled-components";
 
-export const UserList = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const List = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,12 +40,4 @@ export const IconButtonWrapper = styled.div`
   flex-direction: column;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   transition: opacity 0.2s ease-in-out;
-`;
-
-export const Filters = styled.div`
-  display: flex;
-  justify-content: center;
-  & > * {
-    margin-inline-end: 8px;
-  }
 `;
